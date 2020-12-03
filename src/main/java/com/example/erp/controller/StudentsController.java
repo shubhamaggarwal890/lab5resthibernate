@@ -1,6 +1,9 @@
 package com.example.erp.controller;
 import com.example.erp.*;
 import com.example.erp.bean.Students;
+import com.example.erp.utils.SessionUtil;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -21,6 +24,11 @@ public class StudentsController {
         System.out.println(student.getFirst_name());
         System.out.println(student.getLast_name());
         System.out.println(student.getEmail());
+//        Session session = SessionUtil.getSession();
+//        Transaction transaction = session.beginTransaction();
+//        session.save(student);
+//        transaction.commit();
+//        session.close();
         return Response.ok().build();
 
     }
