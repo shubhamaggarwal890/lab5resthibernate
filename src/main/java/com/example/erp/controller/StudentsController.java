@@ -19,11 +19,11 @@ public class StudentsController {
     @Produces(MediaType.TEXT_PLAIN)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response registerStudent(Students student) throws URISyntaxException {
-        System.out.println(student.getFirst_name());
-        System.out.println(student.getLast_name());
-        System.out.println(student.getEmail());
-        return Response.ok().build();
-
+        if(studentService.registerStudent(student)){
+            return Response.ok().build();
+        }else{
+            return Response.status(203).build();
+        }
     }
 
     @POST
@@ -31,7 +31,6 @@ public class StudentsController {
     @Produces(MediaType.TEXT_PLAIN)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response loginStudent(Students student) throws URISyntaxException {
-        System.out.println(student.getEmail());
         if(studentService.verifyEmail(student)){
             return Response.ok().build();
         }else{

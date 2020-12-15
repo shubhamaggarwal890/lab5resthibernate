@@ -16,11 +16,22 @@ student_form.addEventListener('submit', async (e) => {
           last_name: document.getElementById('last_name').value,
           email: document.getElementById('email').value,
       })
-    });
-    let result = await response;
-    console.log(result);
+    }).then(
+        response => {
+            if(response['status'] === 203){
+                document.getElementById("login-success").style.display = "none";
+                document.getElementById("login-alert").style.display = "block";
+
+            }else{
+                document.getElementById("login-alert").style.display = "none";
+                document.getElementById("login-success").style.display = "block";
+
+            }
+        }
+    );
+  }else{
+      student_form.classList.add('was-validated');
   }
-  student_form.classList.add('was-validated');
 });
 
 course_form.onsubmit = async (e) => {
