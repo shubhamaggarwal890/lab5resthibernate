@@ -1,9 +1,7 @@
 package com.example.erp.controller;
-import com.example.erp.*;
+
 import com.example.erp.bean.Students;
-import com.example.erp.utils.SessionUtil;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+import com.example.erp.service.StudentService;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -15,7 +13,7 @@ import java.net.URISyntaxException;
 
 @Path("students")
 public class StudentsController {
-
+    StudentService studentService = new StudentService();
     @POST
     @Path("/register")
     @Produces(MediaType.TEXT_PLAIN)
@@ -24,12 +22,20 @@ public class StudentsController {
         System.out.println(student.getFirst_name());
         System.out.println(student.getLast_name());
         System.out.println(student.getEmail());
-//        Session session = SessionUtil.getSession();
-//        Transaction transaction = session.beginTransaction();
-//        session.save(student);
-//        transaction.commit();
-//        session.close();
         return Response.ok().build();
 
+    }
+
+    @POST
+    @Path("/login")
+    @Produces(MediaType.TEXT_PLAIN)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response loginStudent(Students student) throws URISyntaxException {
+        System.out.println(student.getEmail());
+        if(studentService.verifyEmail(student)){
+            return Response.ok().build();
+        }else{
+            return Response.status(203).build();
+        }
     }
 }
