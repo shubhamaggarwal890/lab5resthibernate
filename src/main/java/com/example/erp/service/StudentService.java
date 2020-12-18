@@ -6,12 +6,11 @@ import com.example.erp.dao.implementation.StudentDaoImpl;
 
 public class StudentService {
     StudentDao studentDao = new StudentDaoImpl();
-    public boolean verifyEmail(Students student){
+    public Students verifyEmail(Students student){
         return studentDao.emailVerify(student);
     }
 
     public boolean registerStudent(Students student){
-
         return studentDao.registerStudent(student);
     }
 }

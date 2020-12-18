@@ -1,11 +1,13 @@
 package com.example.erp.bean;
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name = "Students")
-public class Students {
+public class Students implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer student_id;
@@ -15,7 +17,7 @@ public class Students {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany
     @JoinTable(name = "Student_Courses", joinColumns = {@JoinColumn(name = "student_id")},
             inverseJoinColumns = {@JoinColumn(name = "course_id")})
     private List<Courses> courses;
@@ -61,6 +63,7 @@ public class Students {
         this.student_id = student_id;
     }
 
+    @JsonbTransient
     public List<Courses> getCourses() {
         return courses;
     }

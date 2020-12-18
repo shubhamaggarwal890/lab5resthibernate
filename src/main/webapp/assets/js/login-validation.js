@@ -13,8 +13,10 @@ login_form.addEventListener('submit', async (e) => {
                 email: document.getElementById('email').value,
             })
         });
-        let result = await response;
-        if(result["status"]===200){
+        let result = await response.json();
+        console.log(result);
+        if(result["student_id"]){
+            sessionStorage.setItem('id', result["student_id"]);
             location.href = "dashboard.html";
         }else{
             document.getElementById("login-alert").style.display = "block";

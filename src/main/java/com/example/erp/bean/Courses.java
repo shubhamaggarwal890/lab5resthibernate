@@ -1,10 +1,12 @@
 package com.example.erp.bean;
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
-public class Courses {
+public class Courses implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer course_id;
@@ -12,9 +14,8 @@ public class Courses {
     private String description;
     private int credits;
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "courses")
+    @ManyToMany(mappedBy = "courses")
     private List<Students> students;
-
 
     public Courses() {
     }
@@ -57,6 +58,7 @@ public class Courses {
         this.credits = credits;
     }
 
+    @JsonbTransient
     public List<Students> getStudents() {
         return students;
     }

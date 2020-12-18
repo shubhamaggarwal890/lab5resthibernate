@@ -1,5 +1,7 @@
 package com.example.erp.controller;
 
+import com.example.erp.bean.Courses;
+import com.example.erp.service.CourseService;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 
 import javax.ws.rs.*;
@@ -12,18 +14,13 @@ import java.util.List;
 @Path("courses")
 public class CoursesController {
 
+    CourseService courseService = new CourseService();
+
     @GET
     @Path("/get")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getCourses() {
-        List<String> courses = new ArrayList<>();
-        courses.add("Software Systems");
-        courses.add("Enterprise Software Development");
-        courses.add("Algorithms");
-        courses.add("Machine Learning");
-        courses.add("Maths for Machine Learning");
-        courses.add("Network Communications");
-        courses.add("Discrete Mathematics");
+        List<Courses> courses = courseService.getCourses();
         return Response.ok().entity(courses).build();
     }
 
@@ -35,10 +32,11 @@ public class CoursesController {
     public Response registerCourse(@FormDataParam("name") String name,
                                    @FormDataParam("description") String description,
                                    @FormDataParam("credits") Integer credits) throws URISyntaxException {
-        System.out.println(name);
-        System.out.println(description);
-        System.out.println(credits);
-        return Response.ok().build();
+        Courses course =  new Courses(name, description, credits);
+        if(courseService.registerCourse(course)){
+            return Response.ok().build();
+        }
+        return Response.status(203).build();
 
     }
 }

@@ -4,6 +4,6 @@ import com.example.erp.bean.Students;
 
 public interface StudentDao {
 
-    boolean emailVerify(Students student);
+    Students emailVerify(Students student);
     boolean registerStudent(Students student);
 }

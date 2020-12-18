@@ -11,27 +11,23 @@ import org.hibernate.query.Query;
 public class StudentDaoImpl implements StudentDao {
 
     @Override
-    public boolean emailVerify(Students student) {
-        Session session = SessionUtil.getSession();
-        try {
+    public Students emailVerify(Students student) {
+        try (Session session = SessionUtil.getSession()) {
             Query query = session.createQuery("from Students where email=:email");
             query.setParameter("email", student.getEmail());
-            if(query.getResultList().size()==1){
-                return true;
+            for (final Object fetch : query.list()) {
+                return (Students) fetch;
             }
         } catch (HibernateException exception) {
             System.out.print(exception.getLocalizedMessage());
-            return false;
-        }finally {
-            session.close();
+            return null;
         }
-        return false;
+        return null;
     }
 
     @Override
     public boolean registerStudent(Students student) {
-        Session session = SessionUtil.getSession();
-        try {
+        try (Session session = SessionUtil.getSession()) {
             Transaction transaction = session.beginTransaction();
             session.save(student);
             transaction.commit();
@@ -39,8 +35,6 @@ public class StudentDaoImpl implements StudentDao {
         } catch (HibernateException exception) {
             System.out.print(exception.getLocalizedMessage());
             return false;
-        }finally {
-            session.close();
         }
     }
 }
