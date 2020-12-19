@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Jekyll v4.1.1">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <meta content="" name="description">
+    <meta content="Mark Otto, Jacob Thornton, and Bootstrap contributors" name="author">
+    <meta content="Jekyll v4.1.1" name="generator">
     <title>Signin AcademicERP</title>
 
     <!-- Bootstrap core CSS -->
@@ -35,12 +35,19 @@
     <h2 style="margin-bottom: 20px">Academic ERP</h2>
     <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
 
-    <label for="email" class="sr-only">Email address</label>
-    <input type="email" id="email" class="form-control" placeholder="Email address" required autofocus>
+    <label class="sr-only" for="email">Email address</label>
+    <input autofocus class="form-control" id="email" placeholder="Email address" required type="email">
     <div class="checkbox mb-3" style="margin-bottom: 20px; margin-top: 20px">
     </div>
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-    <div class="alert alert-warning" role="alert" id="login-alert" style="display: none; margin-top: 20px">
+
+    <button class="btn btn-lg btn-primary btn-block" id="submit-button" type="submit">
+        Sign in
+    </button>
+    <button class="btn btn-lg btn-primary btn-block" disabled id="spinner-button" style="display: none;" type="submit">
+        <span aria-hidden="true" class="spinner-border spinner-border-sm" role="status"></span>
+        Signing in...
+    </button>
+    <div class="alert alert-warning" id="login-alert" role="alert" style="display: none; margin-top: 20px">
         Invalid Email Address!!
     </div>
     <p class="mt-5 mb-3 text-muted">&copy; 2017-2020</p>
