@@ -2,6 +2,34 @@ let student_form = document.getElementById('student-validation');
 let course_form = document.getElementById('course-validation');
 window.onload = fetch_courses;
 
+
+async function imageUpload(){
+    let form_data = new FormData();
+    form_data.append('file', document.getElementById('image-data').files[0]);
+    console.log(form_data);
+    let response = await fetch('api/students/image', {
+        method: 'POST',
+        body: form_data
+    }).then(response => {
+        response.blob().then(blob => {
+            console.log(blob);
+            let reader = new FileReader();
+            reader.readAsDataURL(blob);
+            reader.onloadend = function () {
+                let base64String = reader.result;
+                document.getElementById('avatar-image').src = "data:image/png;base64"+base64String;
+                console.log(base64String);
+            }
+            const url = URL.createObjectURL(blob);
+            console.log(url);
+            window.open(url, "_blank");
+        })
+    }).catch(err => {
+        console.log(err);
+    });
+
+}
+
 student_form.addEventListener('submit', async (e) => {
     e.preventDefault();
     e.stopPropagation();
